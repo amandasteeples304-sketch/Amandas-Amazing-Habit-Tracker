@@ -8,6 +8,12 @@ The individual project pages will have a timer on to say how long I've spent on 
 
 Maybe at the end of the year they'll be like a "spotify wrapped" but it'll be for my habit tracker saying how long I spent on things etc.
 
+I will use SQL for my database, allowing me to have complex queries to calculate habit streaks, track the length of time spent on something, and store my own user-specific preferences securely.
+
+I will use Clerk for my user authetication and session management.
+
+I will be styling using Tailwind.CSS, Radix, and MAYBE Motion, but I do find Motion to not be silly goose friendly, so it's not my favourite thing I learnt.
+
 First things first, what are my hobbies?
 
 1. Coding (obvs), and I have to improve somehow!
