@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useStopwatch } from "react-timer-hook";
+import { motion, AnimatePresence } from "motion/react";
 
 export default function Stopwatch() {
   const { seconds, minutes, hours, isRunning, start, pause, reset } =
@@ -12,7 +13,7 @@ export default function Stopwatch() {
 
   const recordLap = () => {
     const currentTime = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
-    setLaps([...laps, currentTime]);
+    setLaps([currentTime, ...laps]);
   };
 
   const handleReset = () => {
@@ -57,7 +58,7 @@ export default function Stopwatch() {
         <button
           onClick={recordLap}
           disabled={!isRunning}
-          className="flex-1 rounded-lg font-bold transition-all border border-white/20 hover:bg-[var(--habit-hover)] disabled:opacity-30 disabled:cursor-not-allowed"
+          className="flex-1 rounded-lg font-bold transition-all border border-white/20 hover:bg-(--habit-hover) disabled:opacity-30 disabled:cursor-not-allowed"
         >
           Lap
         </button>
@@ -68,24 +69,32 @@ export default function Stopwatch() {
           Reset
         </button>
       </div>
-      {laps.length > 0 && (
-        <div className="mt-6 w-full max-h-40 overflow-y-auto custom-scrollbar">
-          <div className="text-xs uppercase opacity-50 mb-2 font-bold sticky top-0 bg-[var(--habit-bg)]">
-            Laps
-          </div>
-          <ul className="space-y-1">
-            {laps.map((lap, index) => (
-              <li
-                key={index}
-                className="flex justify-between items-center py-2 border-b border-white/10 font-mono text-sm"
-              >
-                <span className="opacity-60">Lap {index + 1}</span>
-                <span>{lap}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+
+      <AnimatePresence>
+        {laps.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            className="mt-8 w-full max-h-48 overflow-y-auto pr-2 custom-scrollbar border-t border-white/5"
+          >
+            <ul className="divide-y divide-white/5">
+              {laps.map((lap, index) => (
+                <motion.li
+                  key={laps.length - index}
+                  initial={{ x: -10, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  className="flex justify-between items-center py-3 font-mono text-sm"
+                >
+                  <span className="opacity-40 text-xs">
+                    LAP {laps.length - index}
+                  </span>
+                  <span className="font-bold">{lap}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

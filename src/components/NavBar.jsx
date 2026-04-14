@@ -72,7 +72,7 @@ const NavBar = () => {
                 {navLinks.map((link) => (
                   <DropdownMenu.Item
                     key={link.href}
-                    className="flex items-center gap-3 p-3 text-sm font-semibold text-gray-700 outline-none rounded-lg cursor-pointer data-[highlighted]:bg-habit-bg/10 data-[highlighted]:text-habit-bg transition-colors"
+                    className="flex items-center gap-3 p-3 text-sm font-semibold text-gray-700 outline-none rounded-lg cursor-pointer data-highlighted:bg-habit-bg/10 data-highlighted:text-habit-bg transition-colors"
                   >
                     <Link
                       href={link.href}
@@ -84,7 +84,7 @@ const NavBar = () => {
                   </DropdownMenu.Item>
                 ))}
                 <DropdownMenu.Separator className="h-px bg-gray-100 my-1" />
-                <DropdownMenu.Item className="flex items-center p-3 text-sm font-semibold text-red-600 outline-none rounded-lg cursor-pointer data-[highlighted]:bg-red-50 transition-colors">
+                <DropdownMenu.Item className="flex items-center p-3 text-sm font-semibold text-red-600 outline-none rounded-lg cursor-pointer data-highlighted:bg-red-50 transition-colors">
                   Logout
                 </DropdownMenu.Item>
               </DropdownMenu.Content>
