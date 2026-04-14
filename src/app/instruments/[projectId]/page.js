@@ -53,7 +53,7 @@ export default async function ProjectPage({ params }) {
               {project.status_notes && (
                 <div>
                   <h4 className="text-xs uppercase tracking-wider opacity-40 font-semibold">
-                    Notes
+                    Status Notes
                   </h4>
                   <p className="opacity-80 leading-relaxed">
                     {project.status_notes}
