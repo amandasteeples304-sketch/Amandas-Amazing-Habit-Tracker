@@ -45,7 +45,10 @@ export default async function KnittingPage({ searchParams }) {
               href={`/knitting/${project.slug}`}
               className="group flex flex-col bg-white/5 rounded-3xl border border-white/10 overflow-hidden hover:bg-white/8 transition-all hover:-translate-y-1 shadow-xl"
             >
-              <div className="aspect-4/3 w-full bg-white/5 relative overflow-hidden">
+              <div
+                className="w-full relative overflow-hidden"
+                style={{ aspectRatio: "4/3" }}
+              >
                 {project.image_url ? (
                   <img
                     src={project.image_url}
@@ -63,7 +66,9 @@ export default async function KnittingPage({ searchParams }) {
                   {project.project_name}
                 </h3>
                 <p className="text-sm opacity-50 mt-2 line-clamp-2 leading-relaxed">
-                  {project.status_notes || "No Notes Yet."}
+                  {project.status_notes ||
+                    project.task_description ||
+                    "No Notes Yet."}
                 </p>
                 <div className="mt-6 flex items-center text-xs font-semibold text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">
                   View Project Details →
