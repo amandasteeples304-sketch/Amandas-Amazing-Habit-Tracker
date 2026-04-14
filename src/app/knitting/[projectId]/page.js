@@ -6,7 +6,7 @@ import { Table, Timer as TimerIcon, CirclePlay } from "lucide-react";
 import { supabase } from "@/utils/supabase/client";
 
 export default async function ProjectPage({ params }) {
-  const { projectId } = params;
+  const { projectId } = await params;
 
   const { data: project } = await supabase
     .schema("habit_tracker")
