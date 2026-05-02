@@ -1,4 +1,5 @@
 import { supabase } from "@/utils/supabase/client";
+import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 import NavBar from "@/components/NavBar";
 import ProjectFilter from "@/components/ProjectFilter";
@@ -6,6 +7,8 @@ import ProjectFilter from "@/components/ProjectFilter";
 export default async function WalkingPage({ searchParams }) {
   const params = await searchParams;
   const status = params.status;
+
+  const { userId } = await auth();
 
   let query = supabase
     .schema("habit_tracker")
@@ -37,7 +40,17 @@ export default async function WalkingPage({ searchParams }) {
           </h1>
           <p className="opacity-60 mt-2">Every Step Counts</p>
         </div>
-        <ProjectFilter />
+        <div className="flex items-center gap-4">
+          <ProjectFilter />
+          {userId && (
+            <Link
+              href="/walking/new"
+              className="bg-white/10 hover:bg-white/15 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-all border border-white/5"
+            >
+              Log new walk
+            </Link>
+          )}
+        </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {walks?.length > 0 ? (

@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 import {
   FileCodeCorner, //for coding
@@ -56,7 +57,25 @@ const NavBar = () => {
             </li>
           ))}
         </ul>
-        <div className="flex items-center lg:hidden">
+        <div className="hidden lg:flex items-center gap-4">
+          <SignedOut>
+            <SignInButton mode="modal">
+              <button className="text-sm border border-habit-border px-4 py-2 rounded-xl hover:bg-habit-hover transition-all font-medium">
+                Amanda Sign In
+              </button>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <div className="flex items-center gap-3">
+              <span className="text-xs opacity-60">Amanda</span>
+              <UserButton />
+            </div>
+          </SignedIn>
+        </div>
+        <div className="flex items-center lg:hidden gap-4">
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
           <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild>
               <button className="p-2 rounded-md hover:bg-white/10 transition-colors focus:outline-none">
@@ -84,9 +103,25 @@ const NavBar = () => {
                   </DropdownMenu.Item>
                 ))}
                 <DropdownMenu.Separator className="h-px bg-gray-100 my-1" />
-                <DropdownMenu.Item className="flex items-center p-3 text-sm font-semibold text-red-600 outline-none rounded-lg cursor-pointer data-highlighted:bg-red-50 transition-colors">
-                  Logout
-                </DropdownMenu.Item>
+                <SignedOut>
+                  <SignInButton mode="modal">
+                    <DropdownMenu.Item className="flex items-center p-3 text-sm font-semibold text-habit-bg outline-none rounded-lg cursor-pointer data-highlighted:bg-habit-bg/10 transition-colors">
+                      Sign In
+                    </DropdownMenu.Item>
+                  </SignInButton>
+                </SignedOut>
+                <SignedIn>
+                  <DropdownMenu.Item className="flex items-center p-3 text-sm font-semibold text-habit-bg outline-none rounded-lg cursor-pointer data-highlighted:bg-habit-bg/10 transition-colors">
+                    <div
+                      onClick={() =>
+                        document.querySelector(".cl-userButtonTrigger")?.click()
+                      }
+                      className="w-full"
+                    >
+                      Log Out
+                    </div>
+                  </DropdownMenu.Item>
+                </SignedIn>
               </DropdownMenu.Content>
             </DropdownMenu.Portal>
           </DropdownMenu.Root>
